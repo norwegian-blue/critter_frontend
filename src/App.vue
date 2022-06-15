@@ -1,26 +1,34 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <nav class="navbar navbar-expand">
+      <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <p class="nav-link">Critter</p>
+        </li>
+        <li class="nav-item">
+          <p class="nav-link">Sign Up</p>
+        </li>
+        <li class="nav-item">
+          <p class="nav-link">Login</p>
+        </li>
+      </div>
+    </nav>
+    <div> 
+      <h3>TODO</h3>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
 }
 </script>
 
-<style>
+<style lang="scss">
+$boscoLight: lighten(mediumAquamarine, 30);
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-color: $boscoLight;
 }
 </style>
