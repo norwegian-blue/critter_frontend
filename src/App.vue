@@ -3,19 +3,19 @@
     <nav class="navbar navbar-expand">
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <p class="nav-link">Critter</p>
+          <router-link to="/creets" class="nav-link">Critter</router-link>
         </li>
         <li class="nav-item">
-          <p class="nav-link">Sign Up</p>
+          <router-link to="/register" class="nav-link">Sign Up</router-link>
         </li>
         <li class="nav-item">
-          <p class="nav-link">Login</p>
+          <router-link to="/login" class="nav-link">Login</router-link>
         </li>
       </div>
     </nav>
-    <div> 
-      <h3>TODO</h3>
-    </div>
+    <div class="container">
+      <router-view />
+    </div> 
   </div>
 </template>
 
