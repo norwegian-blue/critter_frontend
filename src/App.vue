@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand">
+    <nav class="navbar navbar-expand navbar-dark bosco-dark">
       <div class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="navbar-brand">
           <router-link to="/creets" class="nav-link">
             <font-awesome-icon icon="tree" /> Critter
           </router-link>
@@ -35,8 +35,14 @@ export default {
 
 <style lang="scss">
 $boscoLight: lighten(mediumAquamarine, 35);
+$boscoDark: darken(mediumAquamarine, 25);
 
-#app {
+#app, body, html {
   background-color: $boscoLight;
+  min-height: 100%;
+}
+
+.bosco-dark {
+  background-color: $boscoDark;
 }
 </style>
