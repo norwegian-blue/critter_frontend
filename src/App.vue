@@ -3,13 +3,21 @@
     <nav class="navbar navbar-expand">
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link to="/creets" class="nav-link">Critter</router-link>
+          <router-link to="/creets" class="nav-link">
+            <font-awesome-icon icon="tree" /> Critter
+          </router-link>
+        </li>
+      </div>
+      <div class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <router-link to="/register" class="nav-link">
+            <font-awesome-icon icon="seedling" /> Sign Up
+          </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/register" class="nav-link">Sign Up</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/login" class="nav-link">Login</router-link>
+          <router-link to="/login" class="nav-link">
+            <font-awesome-icon icon="carrot" /> Login
+          </router-link>
         </li>
       </div>
     </nav>
@@ -26,7 +34,7 @@ export default {
 </script>
 
 <style lang="scss">
-$boscoLight: lighten(mediumAquamarine, 30);
+$boscoLight: lighten(mediumAquamarine, 35);
 
 #app {
   background-color: $boscoLight;
