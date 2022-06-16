@@ -75,7 +75,7 @@ export default {
     },
     methods: {
         handleRegister() {
-
+            this.loading = true;
         },
     }
 }
