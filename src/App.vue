@@ -34,8 +34,7 @@ export default {
 </script>
 
 <style lang="scss">
-$boscoLight: lighten(mediumAquamarine, 35);
-$boscoDark: darken(mediumAquamarine, 25);
+@import "./styles/settings.scss";
 
 #app, body, html {
   background-color: $boscoLight;
