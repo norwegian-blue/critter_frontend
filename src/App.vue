@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand navbar-dark bosco-dark">
       <div class="navbar-nav mr-auto">
         <li class="navbar-brand">
-          <router-link to="/creets" class="nav-link">
+          <router-link to="/home" class="nav-link">
             <font-awesome-icon icon="tree" /> Critter
           </router-link>
         </li>
