@@ -18,7 +18,6 @@
                         <Field name="password" type="password" class="form-control" />
                         <ErrorMessage name="password" class="error-feedback" />
                     </div>
-
                     <div class="form-group">
                         <button class="btn btn-bosco btn-block" :disabled="loading">
                             <span
@@ -29,7 +28,6 @@
                         </button>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div v-if="message" class="alert alert-danger" role="alert">
                         {{ message }} 
@@ -63,12 +61,36 @@ export default {
             schema,
         }
     },
-    methods: {
-        handleLogin() {
-            this.loading = true;
+    computed: {
+        loggedIn() {
+            return this.$store.state.auth.status.loggedIn;
         },
-    }
-}
+    },
+    created() {
+        if (this.loggedIn) {
+            this.$router.push("/profile");
+        }
+    },
+    methods: {
+        handleLogin(user) {
+            this.loading = true;
+            this.$store.dispatch("auth/login", user).then(
+                () => {
+                    this.$router.push("/profile");
+                },
+                (error) => {
+                    this.loading = false;
+                    this.message =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                }
+            );
+        },
+    },
+};
 </script>
 
 
