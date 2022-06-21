@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from "vue-router";
+import { createWebHistory, createWebHashHistory, createRouter } from "vue-router";
 const Home = () => import("./components/Home.vue");
 const Login = () => import("./components/Login.vue");
 const Register = () => import("./components/Register.vue");
@@ -31,7 +31,9 @@ const routes = [
     }
 ];
 const router = createRouter({
-    history: createWebHistory(),
+    history: process.env.NODE_ENV === "production"
+        ? createWebHashHistory()
+        : createWebHistory(),
     routes,
 });
 export default router;
