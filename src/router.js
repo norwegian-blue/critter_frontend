@@ -31,9 +31,7 @@ const routes = [
     }
 ];
 const router = createRouter({
-    history: process.env.NODE_ENV === "production"
-        ? createWebHashHistory()
-        : createWebHistory(),
+    history: createWebHistory(),
     routes,
 });
 export default router;
