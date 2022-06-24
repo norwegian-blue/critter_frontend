@@ -35,6 +35,28 @@ export const auth = {
             AuthService.logout();
             commit('logout');
         },
+        delete({ commit }) {
+            return AuthService.delete().then(
+                () => {
+                    commit('deleteSuccess');
+                    return Promise.resolve();
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            );
+        },
+        update({ commit }, user) {
+            return AuthService.update(user).then(
+                response => {
+                    commit('updateSuccess', user);
+                    return Promise.resolve(response.data);
+                },
+                error => {
+                    return Promise.reject(error);
+                }
+            )
+        },
     },
     mutations: {
         registerSuccess(state) {
@@ -54,6 +76,14 @@ export const auth = {
         logout(state) {
             state.status.loggedIn = false;
             state.user = null;
+        },
+        deleteSuccess(state) {
+            state.status.loggedIn = false;
+            state.user = null;
+        },
+        updateSuccess(state, user) {
+            state.status.loggedIn = true;
+            state.user = user;
         },
     }
 };

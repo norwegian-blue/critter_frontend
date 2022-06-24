@@ -25,5 +25,24 @@ class AuthService {
     logout() {
         localStorage.removeItem('user');
     }
+    delete() {
+        return axios
+            .post(API_URL + 'delete', {
+
+            })
+            .then(response => {
+                localStorage.removeItem('user');
+            });
+    }
+    update(user) {
+        return axios
+            .put(API_URL + 'signup', {
+                username: user.username,
+                password: user.password,
+            })
+            .then(response => {
+                return response.data;
+            });
+    }
 }
 export default new AuthService();
