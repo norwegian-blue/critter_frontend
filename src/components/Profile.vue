@@ -6,8 +6,7 @@
             </div>
         </header>
         <div class="card card-container">
-            <h4 class="text-center">Update user profile</h4>
-            <img class="rounded mx-auto my-3" src="hedgehogMagician.jpg" style="width:75%;height:75%"/>
+            <img class="rounded mx-auto mb-3" src="hedgehogMagician.jpg" style="width:75%;height:75%"/>
             <Form @submit="handleUpdate" :validation-schema="schema">
                 <div class="form-group">
                     <label for="username">New Username</label>
@@ -19,21 +18,20 @@
                     <Field name="password" type="password" class="form-control" />
                     <ErrorMessage name="password" class="error-feedback" />
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-0">
                     <button class="btn btn-bosco btn-block" :disabled="updLoading">
                         Update Profile
                     </button>
                 </div>
                 <div class="form-group">
-                    <div v-if="updMessage" class="alert alert-dange" role="alert">
+                    <div v-if="updMessage" class="alert alert-danger" role="alert">
                         {{ updMessage }}
                     </div>
                 </div>
             </Form>  
         </div>
         <div class="card card-container">
-            <h4 class="text-center mb-0">Remove user</h4>
-            <img class="rounded mx-auto my-3" src="rabbitMoon.jpg" style="width:50%;height:50%"/>
+            <img class="rounded mx-auto mb-3" src="rabbitMoon.jpg" style="width:50%;height:50%"/>
             <Form @submit="handleDelete">
                 <div class="form-group">
                     <button class="btn btn-bosco btn-block" :disabled="delLoading">
@@ -41,7 +39,7 @@
                     </button> 
                 </div>
                 <div class="form-group">
-                    <div v-if="delMessage" class="alert alert-dange" role="alert">
+                    <div v-if="delMessage" class="alert alert-danger" role="alert">
                         {{ delMessage }}
                     </div>
                 </div>
@@ -93,8 +91,8 @@ export default {
                 () => {
                 },
                 (error) => {
-                    this.loading = false;
-                    this.message = 
+                    this.updLoading = false;
+                    this.updMessage = 
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||
@@ -105,13 +103,13 @@ export default {
         },
         handleDelete() {
             this.delLoading = true;
-            this.$store.dispatch("auth/delete").then(
+            this.$store.dispatch("auth/delete", this.currentUser).then(
                 () => {
                     this.$router.push("/home");
                 },
                 (error) => {
-                    this.loading = false;
-                    this.message = 
+                    this.delLoading = false;
+                    this.delMessage = 
                         (error.response &&
                             error.response.data &&
                             error.response.data.message) ||

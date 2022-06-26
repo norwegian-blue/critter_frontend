@@ -4,7 +4,7 @@ const API_URL = process.env.NODE_ENV === "production"
     : "http://localhost:8080/api/auth/";
 class AuthService {
     register(user) {
-        return axios.post(API_URL + 'signup', {
+        return axios.post(API_URL + 'user', {
             username: user.username,
             password: user.password,
         });
@@ -25,10 +25,9 @@ class AuthService {
     logout() {
         localStorage.removeItem('user');
     }
-    delete() {
+    delete(user) {
         return axios
-            .post(API_URL + 'delete', {
-
+            .delete(`${API_URL}user/${user.id}`, {
             })
             .then(response => {
                 localStorage.removeItem('user');
@@ -36,7 +35,7 @@ class AuthService {
     }
     update(user) {
         return axios
-            .put(API_URL + 'signup', {
+            .put(API_URL + 'user', {
                 username: user.username,
                 password: user.password,
             })

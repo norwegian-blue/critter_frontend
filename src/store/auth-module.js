@@ -35,8 +35,8 @@ export const auth = {
             AuthService.logout();
             commit('logout');
         },
-        delete({ commit }) {
-            return AuthService.delete().then(
+        delete({ commit }, user) {
+            return AuthService.delete(user).then(
                 () => {
                     commit('deleteSuccess');
                     return Promise.resolve();
