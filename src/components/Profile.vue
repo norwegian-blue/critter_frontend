@@ -110,21 +110,23 @@ export default {
             );
         },
         handleDelete() {
-            this.delLoading = true;
-            this.$store.dispatch("auth/delete", this.currentUser.id).then(
-                () => {
-                    this.$router.push("/home");
-                },
-                (error) => {
-                    this.delLoading = false;
-                    this.delMessage = 
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-                }
-            );
+            if (confirm("Do you really want to permanently delete current user?")) {
+                this.delLoading = true;
+                this.$store.dispatch("auth/delete", this.currentUser.id).then(
+                    () => {
+                        this.$router.push("/home");
+                    },
+                    (error) => {
+                        this.delLoading = false;
+                        this.delMessage = 
+                            (error.response &&
+                                error.response.data &&
+                                error.response.data.message) ||
+                            error.message ||
+                            error.toString();
+                    }
+                );
+            }
         },
     }
 }
