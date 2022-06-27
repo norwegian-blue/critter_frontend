@@ -1,8 +1,8 @@
 <template>
     <div class="container col-md-12">
         <header>
-            <div id="userName">
-                <h1 class="m-3 text-center">{{ currentUser.username }}</h1>
+            <div v-if="currentUser" id="userName">
+                <h1 class="m-3 text-center">&#x1008A; - {{ currentUser.username }} - &#x1008A;</h1>
             </div>
         </header>
         <div class="card card-container">
@@ -158,6 +158,6 @@ color: red;
 }
 
 #userName {
-    font-family: 'Titan One', cursive; 
+    font-family: 'Titan One', 'Noto Sans Linear B', sans-serif; 
 }
 </style>
