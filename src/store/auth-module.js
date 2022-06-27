@@ -35,8 +35,8 @@ export const auth = {
             AuthService.logout();
             commit('logout');
         },
-        delete({ commit }, user) {
-            return AuthService.delete(user).then(
+        delete({ commit }, userId) {
+            return AuthService.delete(userId).then(
                 () => {
                     commit('deleteSuccess');
                     return Promise.resolve();
@@ -46,11 +46,12 @@ export const auth = {
                 }
             );
         },
-        update({ commit }, user) {
-            return AuthService.update(user).then(
-                response => {
+        update({ commit }, userData) {
+            return AuthService.update(userData.user, userData.userId).then(
+                user => {
+                    console.log(user);
                     commit('updateSuccess', user);
-                    return Promise.resolve(response.data);
+                    return Promise.resolve(user);
                 },
                 error => {
                     return Promise.reject(error);

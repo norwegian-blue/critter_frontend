@@ -35,12 +35,17 @@ class AuthService {
                 localStorage.removeItem('user');
             });
     }
-    update(user) {
+    update(user, userId) {
         return axios
-            .put(API_URL + 'user', {
-                username: user.username,
-                password: user.password,
-            })
+            .put(`${API_URL}user/${userId}`, 
+                {
+                    username: user.username,
+                    password: user.password,
+                },
+                {
+                    headers: authHeader(),
+                }
+            )
             .then(response => {
                 return response.data;
             });

@@ -23,8 +23,10 @@
                         Update Profile
                     </button>
                 </div>
-                <div class="form-group">
-                    <div v-if="updMessage" class="alert alert-danger" role="alert">
+                <div class="form-group mt-3">
+                    <div v-if="updMessage" class="alert" 
+                        :class="updSuccess ? 'alert-success' : 'alert-danger'"
+                         role="alert">
                         {{ updMessage }}
                     </div>
                 </div>
@@ -38,7 +40,7 @@
                         Delete Profile
                     </button> 
                 </div>
-                <div class="form-group">
+                <div class="form-group mt-3">
                     <div v-if="delMessage" class="alert alert-danger" role="alert">
                         {{ delMessage }}
                     </div>
@@ -74,6 +76,7 @@ export default {
         return {
             updLoading: false,
             updMessage: "",
+            updSuccess: false,
             delLoading: false,
             delMessage: "",
             schema,
@@ -86,9 +89,14 @@ export default {
     },
     methods: {
         handleUpdate(user) {
-            this.updloading = true;
-            this.$store.dispatch("auth/update", user).then(
-                () => {
+            this.updLoading = true;
+            this.updMessage = "";
+            this.updSuccess = false;
+            this.$store.dispatch("auth/update", {user: user, userId: this.currentUser.id}).then(
+                (data) => {
+                    this.updLoading = false;
+                    this.updMessage = "Successfully updated user info!";
+                    this.updSuccess = true;
                 },
                 (error) => {
                     this.updLoading = false;
