@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "./auth-header";
 const API_URL = process.env.NODE_ENV === "production"
     ? "/api/auth/"
     : "http://localhost:8080/api/auth/";
@@ -25,11 +26,12 @@ class AuthService {
     logout() {
         localStorage.removeItem('user');
     }
-    delete(user) {
+    delete(userId) {
         return axios
-            .delete(`${API_URL}user/${user.id}`, {
+            .delete(`${API_URL}user/${userId}`, {
+                headers: authHeader(),
             })
-            .then(response => {
+            .then(() => {
                 localStorage.removeItem('user');
             });
     }

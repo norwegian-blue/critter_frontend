@@ -103,7 +103,7 @@ export default {
         },
         handleDelete() {
             this.delLoading = true;
-            this.$store.dispatch("auth/delete", this.currentUser).then(
+            this.$store.dispatch("auth/delete", this.currentUser.id).then(
                 () => {
                     this.$router.push("/home");
                 },
