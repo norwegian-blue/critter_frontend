@@ -76,7 +76,7 @@ export default {
             this.loading = true;
             this.$store.dispatch("auth/login", user).then(
                 () => {
-                    this.$router.push("/profile");
+                    this.$router.push("/creets");
                 },
                 (error) => {
                     this.loading = false;
