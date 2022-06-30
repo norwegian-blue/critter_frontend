@@ -1,27 +1,6 @@
 <template>
     <div class="card card-container">
-        <h1 class="title my-3">Post a Creet</h1>
-        <img
-            class="img-fluid mx-auto"
-            id="post-img"
-            src="bunnyLetter.jpeg"
-            style="width:70%; height:70%"
-        />
-        <form @submit.prevent="postCreet">
-            <div class="form-group my-3">
-                <textarea name="content" 
-                    type="text" 
-                    rows="4"
-                    autocomplete="off"
-                    placeholder="Insert content"
-                    class="form-control" />
-            </div>
-            <div class="form-group mb-3">
-                <button class="btn btn-secondary">
-                    Submit
-                </button>
-            </div>
-        </form>
+        <PostCreet />
     </div>
     <div class="card card-container">
         <h1 class="title my-3">Creets feed</h1>
@@ -29,13 +8,12 @@
 </template>
 
 <script>
+import PostCreet from "./PostCreet"
 export default {
     name: "Creets",
-    methods: {
-        postCreet(creet) {
-            console.log(creet);
-        }
-    }
+    components: {
+        PostCreet,
+    },
 }
 </script>
 
