@@ -48,6 +48,7 @@ export default {
             CreetService.postCreet(this.content)
                 .then(() => {
                     this.loading = false;
+                    this.message = "";
                     console.log('Todo emit update');
                 })
                 .catch(error => {
