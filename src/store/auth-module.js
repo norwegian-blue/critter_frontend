@@ -49,7 +49,6 @@ export const auth = {
         update({ commit }, userData) {
             return AuthService.update(userData.user, userData.userId).then(
                 user => {
-                    console.log(user);
                     commit('updateSuccess', user);
                     return Promise.resolve(user);
                 },
