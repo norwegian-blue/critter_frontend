@@ -4,6 +4,12 @@
     </div>
     <div class="card card-container">
         <h1 class="title my-3">Creets feed</h1>
+        <img
+            class="img-fluid mx-auto"
+            id="post-img"
+            src="forestDance.jpg"
+            style="width:70%; height:70%"
+        />
     </div>
 </template>
 
