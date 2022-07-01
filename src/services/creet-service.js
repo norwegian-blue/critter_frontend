@@ -13,5 +13,11 @@ class CreetService {
                 headers: authHeader(),
             });
     }
+    getFeed() {
+        return axios.get(API_URL, 
+            {
+                headers: authHeader()
+            });
+    }
 }
 export default new CreetService();

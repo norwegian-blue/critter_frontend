@@ -1,9 +1,12 @@
 <template>
     <div class="card card-container">
-        <PostCreet />
+        <PostCreet @posted="updateFeed" />
     </div>
     <div class="card card-container">
-        <h1 class="title my-3">Creets feed</h1>
+        <h1 class="title my-3">Feed</h1>
+        <div v-if="message" class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
         <img
             class="img-fluid mx-auto"
             id="post-img"
@@ -15,11 +18,38 @@
 
 <script>
 import PostCreet from "./PostCreet"
+import CreetService from '../services/creet-service';
 export default {
     name: "Creets",
+    data() {
+        return {
+            creets: [],
+            message: "",
+        };
+    },
     components: {
         PostCreet,
     },
+    created() {
+        this.updateFeed();
+    },
+    methods: {
+        updateFeed() {
+            CreetService.getFeed()
+                .then(response => {
+                    this.creets = response.data.creets;
+                    console.log(this.creets);
+                })
+                .catch(error => {
+                    this.message =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
+                });
+        }
+    }
 }
 </script>
 
