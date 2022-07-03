@@ -68,7 +68,7 @@ export default {
     },
     created() {
         if (this.loggedIn) {
-            this.$router.push("/creets");
+            this.$router.push("/Home");
         }
     },
     methods: {
@@ -76,7 +76,7 @@ export default {
             this.loading = true;
             this.$store.dispatch("auth/login", user).then(
                 () => {
-                    this.$router.push("/creets");
+                    this.$router.push("/Home");
                 },
                 (error) => {
                     this.loading = false;

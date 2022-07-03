@@ -2,16 +2,16 @@ import { createWebHistory, createWebHashHistory, createRouter } from "vue-router
 const Home = () => import("./components/Home.vue");
 const Login = () => import("./components/Login.vue");
 const Register = () => import("./components/Register.vue");
-const Creets = () => import("./components/Creets.vue");
+const Landing = () => import("./components/Landing.vue");
 const Profile = () => import("./components/Profile.vue");
 const routes = [
     {
         path: "/",
-        component: Home,
+        component: Landing,
     },
     {
-        path: "/home",
-        component: Home,
+        path: "/landing",
+        component: Landing,
     },
     {
         path: "/login",
@@ -22,8 +22,8 @@ const routes = [
         component: Profile,
     },
     {
-        path: "/creets",
-        component: Creets,
+        path: "/home",
+        component: Home,
     },
     {
         path: "/register",
