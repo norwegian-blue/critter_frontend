@@ -2,7 +2,7 @@
     <div class="container col-md-12">
         <header>
             <div v-if="currentUser" id="userName">
-                <h1 class="m-3 text-center">&#x1008A; - {{ currentUser.username }} - &#x1008A;</h1>
+                <h4 class="m-3 text-center">&#x1008A; - {{ currentUser.username }} - &#x1008A;</h4>
             </div>
         </header>
         <div class="card card-container">

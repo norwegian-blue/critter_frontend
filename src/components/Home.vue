@@ -13,18 +13,19 @@
             src="forestDance.jpg"
             style="width:70%; height:70%"
         />
-        <div>
-            <ul>
-                <li v-for="creet in creets">
-                    {{ creet.content }}
-                </li>
-            </ul>
+        <div class="container mx-0 my-3 p-1 rounded" style="background-color:#fbfbfb">
+            <Creet
+                v-for="creet in creets"
+                :key="creet.creetId"
+                :creet="creet"
+            />
         </div>
     </div>
 </template>
 
 <script>
 import PostCreet from "./PostCreet"
+import Creet from "./Creet"
 import CreetService from '../services/creet-service';
 export default {
     name: "Home",
@@ -36,6 +37,7 @@ export default {
     },
     components: {
         PostCreet,
+        Creet,
     },
     mounted() {
         if (!this.$store.state.auth.status.loggedIn) {
@@ -67,7 +69,7 @@ export default {
     background-color: #f7f7f7;
     padding: 20px 25px 30px;
     margin: 0 auto 25px;
-    margin-top: 30px;
+    margin-top: 25px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
