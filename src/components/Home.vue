@@ -13,7 +13,7 @@
             src="forestDance.jpg"
             style="width:70%; height:70%"
         />
-        <div class="container mx-0 my-3 p-1 rounded" style="background-color:#fbfbfb">
+        <div class="container mx-0 my-3 px-1 py-0 rounded" style="background-color:#fbfbfb">
             <Creet
                 v-for="creet in creets"
                 :key="creet.creetId"
@@ -65,9 +65,9 @@ export default {
 </script>
 
 <style scoped>
-.card {
+.card-container.card {
     background-color: #f7f7f7;
-    padding: 20px 25px 30px;
+    padding: 20px 15px 30px;
     margin: 0 auto 25px;
     margin-top: 25px;
     -moz-border-radius: 2px;
@@ -76,11 +76,8 @@ export default {
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-.card-container.card {
     max-width: 650px !important;
-    padding: 0px 25px;
+    padding: 0px 15px;
 }
 
 .title {
