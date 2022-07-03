@@ -1,5 +1,6 @@
 <template>
-    <div class="card p-0 my-2">
+    <div class="card p-0 my-3">
+        <!-- Author and date-->
         <div class="card-header row mx-0 p-2">
             <div class="col-xs-6 font-weight-bold">
                 {{ this.author }}
@@ -8,11 +9,29 @@
                 {{ this.dateAndTime }}
             </div>
         </div>
-        <div class="card-body p-2">
+        <!-- Creet content -->
+        <div class="card-body p-2 border-0">
             {{ creet.content }}
         </div>
-        <div class="card-footer p-2">
-            todo
+        <!-- Interaction -->
+        <div class="card-footer row mx-0 p-2 border-0">
+            <div class="col-xs-3 mr-3" v-show="this.isOwner">
+                <button class="btn btn-sm mx-auto">Edit</button>
+            </div>
+            <div class="col-xs-3" v-show="this.isOwner">
+                <button class="btn btn-sm ml-auto">Delete</button>
+            </div>
+            <div class="col-xs-3" v-show="!this.isOwner">
+                <button class="btn btn-sm mx-auto">Re-creet</button>
+            </div>
+            <div class="col-xs-2 my-auto ml-auto">
+                Likes: {{ this.likes }}
+            </div>
+            <div class="col-xs-4 mx-2">
+                <button class="btn btn-sm" :disabled="this.isOwner">
+                    <font-awesome-icon icon="ice-cream"/>
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -24,7 +43,8 @@ export default {
     data() {
         return {
             author: "EmilioConiglio",
-            isOwner: true,
+            isOwner: false,
+            likes: 5,
         }
     },
     computed: {
@@ -47,7 +67,6 @@ export default {
 
 <style scoped lang="scss">
 @import "../styles/settings.scss";
-
 .card {
     font-size: 0.75em;
     -moz-box-shadow: 0px;
@@ -57,10 +76,17 @@ export default {
 
 .card-header {
     background-color: $boscoSemiDark;
+    color: rgb(210, 245, 209);
 }
 
 .card-body, .card-footer {
     background-color: $boscoLight;
 }
 
+.btn {
+    background-color: $boscoDark;
+    padding: 0.2em 0.85em;
+    color: rgb(210, 245, 209);
+    font-size: 0.85em;
+}
 </style>

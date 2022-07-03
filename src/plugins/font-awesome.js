@@ -6,6 +6,7 @@ import {
     faCarrot,
     faPaw,
     faSuitcase,
+    faIceCream,
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faTree, faSeedling, faCarrot, faPaw, faSuitcase);
+library.add(faTree, faSeedling, faCarrot, faPaw, faSuitcase, faIceCream);
 export { FontAwesomeIcon };
