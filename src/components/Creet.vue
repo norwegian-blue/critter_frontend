@@ -15,7 +15,7 @@
         </div>
         <!-- Interaction -->
         <div class="card-footer row mx-0 p-2 border-0">
-            <div class="col-xs-3 mr-3" v-show="this.isOwner">
+            <div class="col-xs-3 mr-2" v-show="this.isOwner">
                 <button class="btn btn-sm mx-auto" @click="editCreet">Edit</button>
             </div>
             <div class="col-xs-3" v-show="this.isOwner">
@@ -41,6 +41,7 @@ import CreetService from '../services/creet-service';
 export default {
     name: "Creet",
     props: ['creet'],
+    emits: ['updated'],
     data() {
         return {
             author: "EmilioConiglio",
@@ -75,6 +76,7 @@ export default {
         deleteCreet() {
             if (confirm("Do you really want to delete this creet?")) {
                 CreetService.deleteCreet(this.creet.creetId);
+                this.$emit('updated', this.creet.creetId);
             }
         },
         recreet() {
@@ -98,7 +100,7 @@ export default {
 
 .card-header {
     background-color: $boscoSoftDark;
-    color: rgb(210, 245, 209);
+    color: #ffffff;
 }
 
 .card-body, .card-footer {
@@ -108,7 +110,7 @@ export default {
 .btn {
     background-color: $boscoSoftDark;
     padding: 0.2em 0.85em;
-    color: rgb(210, 245, 209);
-    font-size: 0.85em;
+    color: #ffffff;
+    font-size: 0.9em;
 }
 </style>

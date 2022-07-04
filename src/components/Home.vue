@@ -18,6 +18,7 @@
                 v-for="creet in creets"
                 :key="creet.creetId"
                 :creet="creet"
+                @updated="(creetId) => removeCreet(creetId)"
             />
         </div>
     </div>
@@ -59,7 +60,12 @@ export default {
                         error.message ||
                         error.toString();
                 });
-        }
+        },
+        removeCreet(creetId) {
+            this.creets = this.creets.filter((el) => {
+                return el.creetId !== creetId;
+            });
+        },
     }
 }
 </script>
