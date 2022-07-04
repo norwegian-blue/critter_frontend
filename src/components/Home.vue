@@ -50,6 +50,7 @@ export default {
             CreetService.getFeed()
                 .then(response => {
                     this.creets = response.data;
+                    console.log(this.creets);
                 })
                 .catch(error => {
                     this.message =

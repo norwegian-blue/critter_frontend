@@ -3,7 +3,7 @@
         <!-- Author and date-->
         <div class="card-header row mx-0 p-2">
             <div class="col-xs-6 font-weight-bold">
-                {{ this.author }}
+                {{ creet.user.username }}
             </div>
             <div class="col-xs-6 ml-auto text-right font-italic">
                 {{ this.dateAndTime }}
@@ -43,7 +43,6 @@ export default {
     data() {
         return {
             author: "EmilioConiglio",
-            isOwner: false,
             likes: 5,
         }
     },
@@ -61,6 +60,12 @@ export default {
             });
             return dateFormat.format(currDate);
         },
+        currentUser() {
+            return this.$store.state.auth.user;
+        },
+        isOwner() {
+            return this.creet.user.userId === this.currentUser.id;
+        },
     },
 }
 </script>
@@ -75,7 +80,7 @@ export default {
 }
 
 .card-header {
-    background-color: $boscoSemiDark;
+    background-color: $boscoSoftDark;
     color: rgb(210, 245, 209);
 }
 
@@ -84,7 +89,7 @@ export default {
 }
 
 .btn {
-    background-color: $boscoDark;
+    background-color: $boscoSoftDark;
     padding: 0.2em 0.85em;
     color: rgb(210, 245, 209);
     font-size: 0.85em;
