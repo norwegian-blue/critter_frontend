@@ -16,19 +16,19 @@
         <!-- Interaction -->
         <div class="card-footer row mx-0 p-2 border-0">
             <div class="col-xs-3 mr-3" v-show="this.isOwner">
-                <button class="btn btn-sm mx-auto">Edit</button>
+                <button class="btn btn-sm mx-auto" @click="editCreet">Edit</button>
             </div>
             <div class="col-xs-3" v-show="this.isOwner">
-                <button class="btn btn-sm ml-auto">Delete</button>
+                <button class="btn btn-sm ml-auto" @click="deleteCreet">Delete</button>
             </div>
             <div class="col-xs-3" v-show="!this.isOwner">
-                <button class="btn btn-sm mx-auto">Re-creet</button>
+                <button class="btn btn-sm mx-auto" @click="recreet">Re-creet</button>
             </div>
             <div class="col-xs-2 my-auto ml-auto">
                 Likes: {{ this.likes }}
             </div>
             <div class="col-xs-4 mx-2">
-                <button class="btn btn-sm" :disabled="this.isOwner">
+                <button class="btn btn-sm" :disabled="this.isOwner" @click="upvote">
                     <font-awesome-icon icon="ice-cream"/>
                 </button>
             </div>
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import CreetService from '../services/creet-service';
 export default {
     name: "Creet",
     props: ['creet'],
@@ -65,6 +66,22 @@ export default {
         },
         isOwner() {
             return this.creet.user.userId === this.currentUser.id;
+        },
+    },
+    methods: {
+        editCreet() {
+            console.log('todo edit');
+        },
+        deleteCreet() {
+            if (confirm("Do you really want to delete this creet?")) {
+                CreetService.deleteCreet(this.creet.creetId);
+            }
+        },
+        recreet() {
+            console.log('todo recreet');
+        },
+        upvote() {
+            console.log('todo upvote');
         },
     },
 }
