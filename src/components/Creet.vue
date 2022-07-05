@@ -9,14 +9,23 @@
                 {{ this.dateAndTime }}
             </div>
         </div>
+
         <!-- Creet content -->
         <div class="card-body p-2 border-0">
             {{ creet.content }}
         </div>
+
         <!-- Interaction -->
         <div class="card-footer row mx-0 p-2 border-0">
             <div class="col-xs-3 mr-2" v-show="this.isOwner">
-                <button class="btn btn-sm mx-auto" @click="editCreet">Edit</button>
+                <CreetModal
+                :showModal="showEditModal"
+                @closeModal="(showEditModal = false)"
+                />
+                <button 
+                class="btn btn-sm mx-auto" 
+                @click="(showEditModal = true)"
+                >Edit</button>
             </div>
             <div class="col-xs-3" v-show="this.isOwner">
                 <button class="btn btn-sm ml-auto" @click="deleteCreet">Delete</button>
@@ -38,13 +47,17 @@
 
 <script>
 import CreetService from '../services/creet-service';
+import CreetModal from './CreetModal.vue';
 export default {
     name: "Creet",
+    components: {
+        CreetModal,
+    },
     props: ['creet'],
     emits: ['updated'],
     data() {
         return {
-            author: "EmilioConiglio",
+            showEditModal: false,
             likes: 5,
         }
     },

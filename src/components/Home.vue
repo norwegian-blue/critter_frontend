@@ -2,6 +2,13 @@
     <div class="card card-container">
         <PostCreet @posted="updateFeed" />
     </div>
+
+    <div>
+        <h1>Modal test</h1>
+        <CreetModal :showModal="showCreetModal" @closeModal="closeModal"></CreetModal>
+        <button @click="toggleModal">toogle</button>
+    </div>
+
     <div class="card card-container">
         <h1 class="title my-3">Feed</h1>
         <div v-if="message" class="alert alert-danger" role="alert">
@@ -28,17 +35,20 @@
 import PostCreet from "./PostCreet"
 import Creet from "./Creet"
 import CreetService from '../services/creet-service';
+import CreetModal from './CreetModal';
 export default {
     name: "Home",
     data() {
         return {
             creets: [],
             message: "",
+            showCreetModal: false,
         };
     },
     components: {
         PostCreet,
         Creet,
+        CreetModal,
     },
     mounted() {
         if (!this.$store.state.auth.status.loggedIn) {
@@ -66,6 +76,12 @@ export default {
                 return el.creetId !== creetId;
             });
         },
+        closeModal() {
+            this.showCreetModal = false;
+        },
+        toggleModal() {
+            this.showCreetModal = !this.showCreetModal;
+        }
     }
 }
 </script>
