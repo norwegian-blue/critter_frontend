@@ -1,5 +1,5 @@
 <template>
-    <div class="card p-0 my-3">
+    <div class="card p-0 mb-4">
         <!-- Author and date-->
         <div class="card-header row mx-0 p-2">
             <div class="col-xs-6 font-weight-bold">
@@ -114,6 +114,7 @@ export default {
 .card-header {
     background-color: $boscoSoftDark;
     color: #ffffff;
+    border-bottom-width: 0.25em;
 }
 
 .card-body, .card-footer {

@@ -1,16 +1,16 @@
 <template>
     <div class="card card-container">
-        <PostCreet @posted="updateFeed" />
-    </div>
-
-    <div>
-        <h1>Modal test</h1>
-        <CreetModal :showModal="showCreetModal" @closeModal="closeModal"></CreetModal>
-        <button @click="toggleModal">toogle</button>
+        <h1 class="title my-3 mx-auto">Post a Creet</h1>
+        <button class="btn btn-secondary mb-3 mx-auto" style="width:30%" @click="toggleModal">Create</button>
+        <CreetModal 
+            :showModal="showCreetModal" 
+            @closeModal="closeModal"
+            @posted="updateFeed"
+        />
     </div>
 
     <div class="card card-container">
-        <h1 class="title my-3">Feed</h1>
+        <h1 class="title my-3 mx-auto">Feed</h1>
         <div v-if="message" class="alert alert-danger" role="alert">
             {{ message }}
         </div>
@@ -20,7 +20,7 @@
             src="forestDance.jpg"
             style="width:70%; height:70%"
         />
-        <div class="container mx-0 my-3 px-1 py-0 rounded" style="background-color:#fbfbfb">
+        <div class="container mx-0 my-4 px-1 py-0 rounded" style="background-color:#fbfbfb">
             <Creet
                 v-for="creet in creets"
                 :key="creet.creetId"
@@ -86,12 +86,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../styles/settings.scss";
 .card-container.card {
     background-color: #f7f7f7;
     padding: 20px 15px 30px;
-    margin: 0 auto 25px;
-    margin-top: 25px;
+    margin: 20px auto;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
@@ -104,5 +104,12 @@ export default {
 
 .title {
     font-family: 'Titan One', sans-serif;
+}
+.btn {
+    background-color: $boscoDark;
+    border-style: none;
+    padding: 0.5em 0.85em;
+    color: #ffffff;
+    font-size: 0.9em;
 }
 </style>
