@@ -110,6 +110,7 @@ export default {
             return this.$store.state.auth.user;
         },
         isOwner() {
+            if (!this.currentUser) { return false }
             return this.creet.user.id === this.currentUser.id;
         },
     },
