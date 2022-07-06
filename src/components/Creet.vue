@@ -13,6 +13,14 @@
         <!-- Creet content -->
         <div class="card-body p-2 border-0">
             {{ creet.content }}
+            <div v-if="this.creet.reCreet" class="card reCreet mt-3">
+                <div class="card-header reCreet font-weight-bold text-right">
+                    {{ creet.reCreet.user.username }}
+                </div>
+                <div class="card-body reCreet">
+                    {{ creet.reCreet.content }}
+                </div>
+            </div>
         </div>
 
         <!-- Interaction -->
@@ -40,8 +48,10 @@
                     :showModal="showRecreetModal"
                     :reCreet="this.creet"
                     @closeModal="(showRecreetModal = false)"
+                    @posted="this.$emit('updated')"
                     />
                     <button class="btn btn-sm mx-auto" 
+                    :disabled="this.creet.reCreet"
                     @click="(showRecreetModal = true)"
                     >Re-creet</button>
                 </div>
@@ -145,6 +155,23 @@ export default {
 .card-body, .card-footer {
     background-color: $boscoLight;
 }
+
+.card.reCreet {
+    font-size: 0.9em;
+    border-color: #888;
+}
+
+.card-header.reCreet {
+    color: #212529;
+    background-color: #ccc;
+    padding: 5px;
+} 
+.card-body.reCreet {
+    background-color: rgba(255, 255, 255, 0);
+    border-style: none;
+    padding: 5px;
+}
+
 
 .btn {
     background-color: $boscoSoftDark;
