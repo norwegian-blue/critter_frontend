@@ -34,7 +34,14 @@
             </div>
             
             <div class="col-xs-3" v-show="!this.isOwner">
-                <button class="btn btn-sm mx-auto" @click="recreet">Re-creet</button>
+                <CreetModal
+                :showModal="showRecreetModal"
+                :reCreet="this.creet"
+                @closeModal="(showRecreetModal = false)"
+                />
+                <button class="btn btn-sm mx-auto" 
+                @click="(showRecreetModal = true)"
+                >Re-creet</button>
             </div>
             
             <div class="col-xs-2 my-auto ml-auto">
@@ -62,6 +69,7 @@ export default {
     data() {
         return {
             showEditModal: false,
+            showRecreetModal: false,
             likes: 5,
         }
     },
@@ -87,17 +95,11 @@ export default {
         },
     },
     methods: {
-        editCreet() {
-            console.log('todo edit');
-        },
         deleteCreet() {
             if (confirm("Do you really want to delete this creet?")) {
                 CreetService.deleteCreet(this.creet.creetId);
                 this.$emit('updated', this.creet.creetId);
             }
-        },
-        recreet() {
-            console.log('todo recreet');
         },
         upvote() {
             console.log('todo upvote');

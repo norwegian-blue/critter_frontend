@@ -21,15 +21,15 @@
                         class="close"
                         data-dismiss="modal"
                         aria-label="Close"
-                        @click="$emit('closeModal')"
+                        @click="closeModal()"
                         >
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
                     <!-- Modal body: creet/recreet text -->
-                    <div class="modal-body">
-                        <div class="row mb-3"> 
+                    <div class="modal-body py-0">
+                        <div class="row my-3"> 
                             <img
                             class="img-fluid mx-auto"
                             id="post-img"
@@ -37,7 +37,7 @@
                             style="width:40%"
                             />    
                         </div>
-                        <div class="row mx-3">
+                        <div class="row m-3">
                             <textarea name="content"
                                 type="text"
                                 v-model="content"
@@ -47,14 +47,24 @@
                                 placeholder="Insert content"
                             />
                         </div>
-                        <div v-if="message" class="alert alert-danger mt-3 mb-0 fade show" role="alert">
+                        <div v-if="this.reCreet" class="row m-3">
+                            <div class="card">
+                                <div class="card-header font-weight-bold text-right pl-auto">
+                                    {{ this.reCreet.user.username }}
+                                </div>
+                                <div class="card-body">
+                                    {{ this.reCreet.content }}
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="message" class="alert alert-danger m-3 fade show" role="alert">
                             {{ message }}
                         </div>
                     </div>
 
                     <!-- Modal footer: close/submit -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" @click="$emit('closeModal')">Close</button>
+                        <button type="button" class="btn btn-danger" @click="closeModal()">Close</button>
                         <button 
                             type="button" 
                             class="btn btn-secondary" 
@@ -101,7 +111,13 @@ export default{
         }
     },
     methods: {
+        closeModal() {
+            this.message = "";
+            this.loading = false;
+            this.$emit('closeModal');
+        },
         submitCreet() {
+            // Check content
             this.loading = true;
             if (!this.content) {
                 this.loading = false;
@@ -109,16 +125,16 @@ export default{
                 return;
             }
 
+            // Dispatch correct method
+            let dispatch;
             if (this.editCreet) {
-                this.editOldCreet();
+                dispatch = this.editOldCreet;
             } else if (this.reCreet) {
-                this.repostCreet();
+                dispatch = this.repostCreet;
             } else {
-                this.postNewCreet();
+                dispatch = this.postNewCreet;
             }
-        },
-        postNewCreet() {
-            CreetService.postCreet(this.content)
+            dispatch()
                 .then(() => {
                     this.loading = false;
                     this.$emit('posted');
@@ -135,33 +151,21 @@ export default{
                         error.toString();
                 });
         },
+        postNewCreet() {
+            return CreetService.postCreet(this.content)
+        },
         editOldCreet() {
-            CreetService.editCreet(this.editCreet.creetId, this.content)
-                .then(() => {
-                    this.loading = false;
-                    this.$emit('posted');
-                    this.content = "";
-                    this.$emit('closeModal');
-                })
-                .catch(error => {
-                    this.loading = false;
-                    this.message =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString(); 
-                });
+            return CreetService.editCreet(this.editCreet.creetId, this.content)
         },
         repostCreet() {
-            console.log('todo');
+            return CreetService.repostCreet(this.reCreet.creetId, this.content);
         }
     },
     mounted() {
         if (this.editCreet) {
             this.content = this.editCreet.content;
         }
-    }
+    },
 }
 </script>
 
@@ -183,5 +187,16 @@ export default{
 
 .modal-content {
     background-color: #f9f9f9;
+}
+
+.card {
+    background-color: white;
+    border-color: #888;
+    font-size: 0.7em;
+    width: 100%;
+}
+
+.card-header, .card-body {
+    padding: 5px 10px;
 }
 </style>

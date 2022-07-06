@@ -39,5 +39,14 @@ class CreetService {
                 headers: authHeader(),
             });
     }
+    repostCreet(creetId, content) {
+        return axios.post(`${API_URL}recreet/${creetId}`,
+            {
+                content: content,
+            },
+            {
+                headers: authHeader(),
+            });
+    }
 }
 export default new CreetService();
