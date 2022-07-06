@@ -25,7 +25,8 @@
                 v-for="creet in creets"
                 :key="creet.creetId"
                 :creet="creet"
-                @updated="(creetId) => removeCreet(creetId)"
+                @deleted="(creetId) => removeCreet(creetId)"
+                @updated="updateFeed()"
             />
         </div>
     </div>

@@ -138,11 +138,18 @@ export default{
                 .then(() => {
                     this.loading = false;
                     this.$emit('posted');
-                    this.content = "";
+                    if (!this.editCreet) {
+                        this.content = "";
+                    }
                     this.$emit('closeModal');
                 })
                 .catch(error => {
                     this.loading = false;
+                    if (!this.editCreet) {
+                        this.content = "";
+                    } else {
+                        this.content = this.editCreet.content;
+                    }
                     this.message =
                         (error.response &&
                             error.response.data &&

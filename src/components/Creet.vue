@@ -22,6 +22,7 @@
                 :showModal="showEditModal"
                 :editCreet="this.creet"
                 @closeModal="(showEditModal = false)"
+                @posted="this.$emit('updated')"
                 />
                 <button 
                 class="btn btn-sm mx-auto" 
@@ -65,7 +66,7 @@ export default {
         CreetModal,
     },
     props: ['creet'],
-    emits: ['updated'],
+    emits: ['updated', 'deleted'],
     data() {
         return {
             showEditModal: false,
@@ -98,7 +99,7 @@ export default {
         deleteCreet() {
             if (confirm("Do you really want to delete this creet?")) {
                 CreetService.deleteCreet(this.creet.creetId);
-                this.$emit('updated', this.creet.creetId);
+                this.$emit('deleted', this.creet.creetId);
             }
         },
         upvote() {
