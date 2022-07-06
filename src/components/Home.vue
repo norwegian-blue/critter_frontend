@@ -72,7 +72,7 @@ export default {
         },
         removeCreet(creetId) {
             this.creets = this.creets.filter((el) => {
-                return el.creetId !== creetId;
+                return el.id !== creetId;
             });
         },
         closeModal() {

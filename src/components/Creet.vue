@@ -16,42 +16,49 @@
         </div>
 
         <!-- Interaction -->
-        <div class="card-footer row mx-0 p-2 border-0">
-            <div class="col-xs-3 mr-2" v-show="this.isOwner">
-                <CreetModal
-                :showModal="showEditModal"
-                :editCreet="this.creet"
-                @closeModal="(showEditModal = false)"
-                @posted="this.$emit('updated')"
-                />
-                <button 
-                class="btn btn-sm mx-auto" 
-                @click="(showEditModal = true)"
-                >Edit</button>
-            </div>
+        <div class="card-footer p-2 border-0">
+            <div class = "row mx-0">
+                <div class="col-xs-3 mr-2" v-show="this.isOwner">
+                    <CreetModal
+                    :showModal="showEditModal"
+                    :editCreet="this.creet"
+                    @closeModal="(showEditModal = false)"
+                    @posted="this.$emit('updated')"
+                    />
+                    <button 
+                    class="btn btn-sm mx-auto" 
+                    @click="(showEditModal = true)"
+                    >Edit</button>
+                </div>
 
-            <div class="col-xs-3" v-show="this.isOwner">
-                <button class="btn btn-sm ml-auto" @click="deleteCreet">Delete</button>
+                <div class="col-xs-3" v-show="this.isOwner">
+                    <button class="btn btn-sm ml-auto" @click="deleteCreet">Delete</button>
+                </div>
+                
+                <div class="col-xs-3" v-show="!this.isOwner">
+                    <CreetModal
+                    :showModal="showRecreetModal"
+                    :reCreet="this.creet"
+                    @closeModal="(showRecreetModal = false)"
+                    />
+                    <button class="btn btn-sm mx-auto" 
+                    @click="(showRecreetModal = true)"
+                    >Re-creet</button>
+                </div>
+                
+                <div class="col-xs-2 my-auto ml-auto">
+                    Likes: {{ this.likes }}
+                </div>
+                <div class="col-xs-4 mx-2">
+                    <button class="btn btn-sm" :disabled="this.isOwner" @click="upvote">
+                        <font-awesome-icon icon="ice-cream"/>
+                    </button>
+                </div>
             </div>
-            
-            <div class="col-xs-3" v-show="!this.isOwner">
-                <CreetModal
-                :showModal="showRecreetModal"
-                :reCreet="this.creet"
-                @closeModal="(showRecreetModal = false)"
-                />
-                <button class="btn btn-sm mx-auto" 
-                @click="(showRecreetModal = true)"
-                >Re-creet</button>
-            </div>
-            
-            <div class="col-xs-2 my-auto ml-auto">
-                Likes: {{ this.likes }}
-            </div>
-            <div class="col-xs-4 mx-2">
-                <button class="btn btn-sm" :disabled="this.isOwner" @click="upvote">
-                    <font-awesome-icon icon="ice-cream"/>
-                </button>
+            <div class="row">
+                <div v-if="message" class="alert alert-danger mx-auto mt-3 mb-2 p-2 fade show" role="alert">
+                    {{ message }}
+                </div>
             </div>
         </div>
     </div>
@@ -72,6 +79,7 @@ export default {
             showEditModal: false,
             showRecreetModal: false,
             likes: 5,
+            message: "",
         }
     },
     computed: {
@@ -92,14 +100,24 @@ export default {
             return this.$store.state.auth.user;
         },
         isOwner() {
-            return this.creet.user.userId === this.currentUser.id;
+            return this.creet.user.id === this.currentUser.id;
         },
     },
     methods: {
         deleteCreet() {
             if (confirm("Do you really want to delete this creet?")) {
-                CreetService.deleteCreet(this.creet.creetId);
-                this.$emit('deleted', this.creet.creetId);
+                CreetService.deleteCreet(this.creet.id)
+                    .then(() => {
+                        this.$emit('deleted', this.creet.id);
+                    })
+                    .catch(error => {
+                        this.message =
+                            (error.response &&
+                                error.response.data &&
+                                error.response.data.message) ||
+                            error.message ||
+                            error.toString();
+                    });
             }
         },
         upvote() {

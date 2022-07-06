@@ -162,10 +162,10 @@ export default{
             return CreetService.postCreet(this.content)
         },
         editOldCreet() {
-            return CreetService.editCreet(this.editCreet.creetId, this.content)
+            return CreetService.editCreet(this.editCreet.id, this.content)
         },
         repostCreet() {
-            return CreetService.repostCreet(this.reCreet.creetId, this.content);
+            return CreetService.repostCreet(this.reCreet.id, this.content);
         }
     },
     mounted() {

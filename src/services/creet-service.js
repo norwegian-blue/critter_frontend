@@ -23,11 +23,6 @@ class CreetService {
         return axios.delete(`${API_URL}${creetId}`,
             {
                 headers: authHeader()
-            })
-            .then()
-            .catch(err => {
-                console.log('Unexpected error');
-                console.log(err);
             });
     }
     editCreet(creetId, content) {
