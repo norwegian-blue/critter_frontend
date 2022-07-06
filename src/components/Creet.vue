@@ -20,6 +20,7 @@
             <div class="col-xs-3 mr-2" v-show="this.isOwner">
                 <CreetModal
                 :showModal="showEditModal"
+                :editCreet="this.creet"
                 @closeModal="(showEditModal = false)"
                 />
                 <button 
@@ -27,12 +28,15 @@
                 @click="(showEditModal = true)"
                 >Edit</button>
             </div>
+
             <div class="col-xs-3" v-show="this.isOwner">
                 <button class="btn btn-sm ml-auto" @click="deleteCreet">Delete</button>
             </div>
+            
             <div class="col-xs-3" v-show="!this.isOwner">
                 <button class="btn btn-sm mx-auto" @click="recreet">Re-creet</button>
             </div>
+            
             <div class="col-xs-2 my-auto ml-auto">
                 Likes: {{ this.likes }}
             </div>

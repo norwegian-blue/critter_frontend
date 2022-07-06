@@ -11,7 +11,11 @@
                 <div class="modal-content">
                     <!-- Modal header -->
                     <div class="modal-header">
-                        <h4 class="modal-title title">Post a new Creet</h4>
+                        <h4 class="modal-title title">
+                            <span v-if="this.editCreet">Edit Creet</span>
+                            <span v-else-if="this.reCreet">Repost Creet</span>
+                            <span v-else>Post a new Creet</span>
+                        </h4>
                         <button
                         type="button"
                         class="close"
@@ -51,7 +55,11 @@
                     <!-- Modal footer: close/submit -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" @click="$emit('closeModal')">Close</button>
-                        <button type="button" class="btn btn-secondary" :disabled="loading" @click="postNewCreet">
+                        <button 
+                            type="button" 
+                            class="btn btn-secondary" 
+                            :disabled="loading" 
+                            @click="submitCreet">
                             <span v-show="loading" class="spinner-border spinner-border-sm"></span>
                             <span>Submit</span>
                         </button>
@@ -70,6 +78,8 @@ export default{
     emits: ["closeModal", "posted"],
     props: {
         showModal: Boolean,
+        editCreet: Object,
+        reCreet: Object,
     },
     watch: {
         showModal: {
@@ -91,13 +101,23 @@ export default{
         }
     },
     methods: {
-        postNewCreet() {
+        submitCreet() {
             this.loading = true;
             if (!this.content) {
                 this.loading = false;
-                this.message = "Content cannot be empty";
+                this.message = "Content cannot be empty!";
                 return;
             }
+
+            if (this.editCreet) {
+                this.editOldCreet();
+            } else if (this.reCreet) {
+                this.repostCreet();
+            } else {
+                this.postNewCreet();
+            }
+        },
+        postNewCreet() {
             CreetService.postCreet(this.content)
                 .then(() => {
                     this.loading = false;
@@ -115,6 +135,32 @@ export default{
                         error.toString();
                 });
         },
+        editOldCreet() {
+            CreetService.editCreet(this.editCreet.creetId, this.content)
+                .then(() => {
+                    this.loading = false;
+                    this.$emit('posted');
+                    this.content = "";
+                    this.$emit('closeModal');
+                })
+                .catch(error => {
+                    this.loading = false;
+                    this.message =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString(); 
+                });
+        },
+        repostCreet() {
+            console.log('todo');
+        }
+    },
+    mounted() {
+        if (this.editCreet) {
+            this.content = this.editCreet.content;
+        }
     }
 }
 </script>

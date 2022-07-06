@@ -30,5 +30,14 @@ class CreetService {
                 console.log(err);
             });
     }
+    editCreet(creetId, content) {
+        return axios.put(`${API_URL}${creetId}`,
+            {
+                content: content,
+            },
+            {
+                headers: authHeader(),
+            });
+    }
 }
 export default new CreetService();

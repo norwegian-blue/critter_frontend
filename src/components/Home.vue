@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import PostCreet from "./PostCreet"
 import Creet from "./Creet"
 import CreetService from '../services/creet-service';
 import CreetModal from './CreetModal';
@@ -46,7 +45,6 @@ export default {
         };
     },
     components: {
-        PostCreet,
         Creet,
         CreetModal,
     },
