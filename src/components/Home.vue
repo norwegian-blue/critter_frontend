@@ -1,7 +1,7 @@
 <template>
     <div class="card card-container">
-        <h1 class="title my-3 mx-auto">Post a Creet</h1>
-        <button class="btn btn-secondary mb-3 mx-auto" style="width:30%" @click="toggleModal">Create</button>
+        <h2 class="title my-2 mx-auto">Post a Creet</h2>
+        <button class="btn btn-secondary mb-2 mx-auto" style="width:25%" @click="toggleModal">Create</button>
         <CreetModal 
             :showModal="showCreetModal" 
             @closeModal="closeModal"
@@ -10,7 +10,7 @@
     </div>
 
     <div class="card card-container">
-        <h1 class="title my-3 mx-auto">Feed</h1>
+        <h2 class="title my-2 mx-auto">Feed</h2>
         <div v-if="message" class="alert alert-danger" role="alert">
             {{ message }}
         </div>
@@ -20,7 +20,7 @@
             src="forestDance.jpg"
             style="width:70%; height:70%"
         />
-        <div class="container mx-0 my-4 px-1 py-0 rounded" style="background-color:#fbfbfb">
+        <div class="container mx-0 my-3 px-1 py-0 rounded" style="background-color:#fbfbfb">
             <Creet
                 v-for="creet in creets"
                 :key="creet.creetId"
@@ -30,12 +30,17 @@
             />
         </div>
     </div>
+
+    <div class="row">
+       <Pagination :pages="pages" :pageNum="currentPage"/> 
+    </div> 
 </template>
 
 <script>
 import Creet from "./Creet"
 import CreetService from '../services/creet-service';
 import CreetModal from './CreetModal';
+import Pagination from './Pagination';
 export default {
     name: "Home",
     data() {
@@ -43,11 +48,15 @@ export default {
             creets: [],
             message: "",
             showCreetModal: false,
+            currentPage: 1,
+            pages: 5,
+            creetsPerPage: 5,
         };
     },
     components: {
         Creet,
         CreetModal,
+        Pagination,
     },
     mounted() {
         if (!this.$store.state.auth.status.loggedIn) {
@@ -107,8 +116,8 @@ export default {
 .btn {
     background-color: $boscoDark;
     border-style: none;
-    padding: 0.5em 0.85em;
+    padding: 0.4em 0.55em;
     color: #ffffff;
-    font-size: 0.9em;
+    font-size: 0.85em;
 }
 </style>
