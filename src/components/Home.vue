@@ -32,7 +32,7 @@
     </div>
 
     <div class="row">
-       <Pagination :pages="pages" :pageNum="currentPage"/> 
+       <Pagination :pages="pages" :pageNum="currentPage" @pageUpd="(pgNum) => {this.currentPage = pgNum; this.updateFeed()}"/> 
     </div> 
 </template>
 
@@ -49,7 +49,7 @@ export default {
             message: "",
             showCreetModal: false,
             currentPage: 1,
-            pages: 5,
+            pages: 1,
             creetsPerPage: 5,
         };
     },
@@ -66,9 +66,11 @@ export default {
     },
     methods: {
         updateFeed() {
-            CreetService.getFeed()
+            CreetService.getFeed(this.currentPage, this.creetsPerPage)
                 .then(response => {
-                    this.creets = response.data;
+                    this.message = "";
+                    this.creets = response.data.creets;
+                    this.pages = response.data.totalPages;
                 })
                 .catch(error => {
                     this.message =

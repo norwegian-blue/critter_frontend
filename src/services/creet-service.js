@@ -1,11 +1,11 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 const API_URL = process.env.NODE_ENV === "Production"
-    ? "/api/creets/"
-    : "http://localhost:8080/api/creets/";
+    ? "/api/creets"
+    : "http://localhost:8080/api/creets";
 class CreetService {
     postCreet(content) {
-        return axios.post(API_URL, 
+        return axios.post(API_URL + '/',
             {
                 content: content,
             },
@@ -13,20 +13,20 @@ class CreetService {
                 headers: authHeader(),
             });
     }
-    getFeed() {
-        return axios.get(API_URL, 
+    getFeed(page, size) {
+        return axios.get(`${API_URL}?page=${page}&size=${size}`, 
             {
                 headers: authHeader()
             });
     }
     deleteCreet(creetId) {
-        return axios.delete(`${API_URL}${creetId}`,
+        return axios.delete(`${API_URL}/${creetId}`,
             {
                 headers: authHeader()
             });
     }
     editCreet(creetId, content) {
-        return axios.put(`${API_URL}${creetId}`,
+        return axios.put(`${API_URL}/${creetId}`,
             {
                 content: content,
             },
@@ -35,7 +35,7 @@ class CreetService {
             });
     }
     repostCreet(creetId, content) {
-        return axios.post(`${API_URL}recreet/${creetId}`,
+        return axios.post(`${API_URL}/recreet/${creetId}`,
             {
                 content: content,
             },

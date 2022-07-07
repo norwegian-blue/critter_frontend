@@ -42,6 +42,7 @@
 <script>
 export default {
     name: "Pagination",
+    emit: ["pageUpd"],
     props: {
         pages: Number,
         pageNum: Number,
@@ -70,6 +71,9 @@ export default {
             this.pgNum = this.currentPage < this.pages ? this.pgNum : [-2, -1, 0].map(x => x+this.pages);
             if (this.pages === 2) { this.pgNum = [1, 2, 0] }
             if (this.pages === 1) { this.pgNum = [1, 0, 0] }
+
+            // Emit update
+            this.$emit("pageUpd", this.currentPage);
         },
     }
 }
