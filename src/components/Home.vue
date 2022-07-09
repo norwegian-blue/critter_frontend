@@ -25,7 +25,6 @@
                 v-for="creet in creets"
                 :key="creet.creetId"
                 :creet="creet"
-                @deleted="(creetId) => removeCreet(creetId)"
                 @updated="updateFeed()"
             />
         </div>
@@ -80,11 +79,6 @@ export default {
                         error.message ||
                         error.toString();
                 });
-        },
-        removeCreet(creetId) {
-            this.creets = this.creets.filter((el) => {
-                return el.id !== creetId;
-            });
         },
         closeModal() {
             this.showCreetModal = false;

@@ -60,9 +60,13 @@
                     Likes: {{ this.likes }}
                 </div>
                 <div class="col-xs-4 mx-2">
-                    <button class="btn btn-sm" :disabled="this.isOwner" @click="upvote">
+                    <button class="btn btn-sm" :disabled="!this.canLike" @click="upvote">
                         <font-awesome-icon icon="ice-cream"/>
                     </button>
+                    <span
+                        v-show="loading"
+                        class="ml-2 spinner-border spinner-border-sm"
+                    ></span>
                 </div>
             </div>
             <div class="row">
@@ -83,13 +87,13 @@ export default {
         CreetModal,
     },
     props: ['creet'],
-    emits: ['updated', 'deleted'],
+    emits: ['updated'],
     data() {
         return {
             showEditModal: false,
             showRecreetModal: false,
-            likes: 5,
             message: "",
+            loading: false,
         }
     },
     computed: {
@@ -113,13 +117,25 @@ export default {
             if (!this.currentUser) { return false }
             return this.creet.user.id === this.currentUser.id;
         },
+        likes() {
+            return this.creet.like.length;
+        },
+        canLike() {
+            const liked = this.creet.like.map(
+                el => (el.id === this.currentUser.id)
+            ).reduce(
+                (prev, el) => (prev || el),
+                false
+            )
+            return !this.isOwner && !liked;
+        }
     },
     methods: {
         deleteCreet() {
             if (confirm("Do you really want to delete this creet?")) {
                 CreetService.deleteCreet(this.creet.id)
                     .then(() => {
-                        this.$emit('deleted', this.creet.id);
+                        this.$emit('updated');
                     })
                     .catch(error => {
                         this.message =
@@ -128,11 +144,28 @@ export default {
                                 error.response.data.message) ||
                             error.message ||
                             error.toString();
+                            setTimeout(() => {this.message = ""}, 1000);
                     });
             }
         },
         upvote() {
-            console.log('todo upvote');
+            if (!this.canLike) { return };
+            this.loading = true;
+            CreetService.upvoteCreet(this.creet.id)
+                .then(() => {
+                    this.loading = false;
+                    this.$emit('updated');
+                })
+                .catch(error => {
+                    this.loading = false;
+                    this.message =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString(); 
+                        setTimeout(() => {this.message = ""}, 1000);
+                });
         },
     },
 }

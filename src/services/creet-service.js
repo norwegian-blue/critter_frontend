@@ -43,5 +43,11 @@ class CreetService {
                 headers: authHeader(),
             });
     }
+    upvoteCreet(creetId) {
+        return axios.post(`${API_URL}/upvote/${creetId}`, {},
+            {
+                headers: authHeader(),
+            });
+    }
 }
 export default new CreetService();
