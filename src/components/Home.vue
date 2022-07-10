@@ -63,6 +63,11 @@ export default {
         }
         this.updateFeed();
     },
+    updated() {
+        if (!this.$store.state.auth.status.loggedIn) {
+            return this.$router.push("/Landing");
+        }
+    },
     methods: {
         updateFeed() {
             CreetService.getFeed(this.currentPage, this.creetsPerPage)

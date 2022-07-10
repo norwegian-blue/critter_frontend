@@ -121,6 +121,7 @@ export default {
             return this.creet.like.length;
         },
         canLike() {
+            if (!this.currentUser) {return false}
             const liked = this.creet.like.map(
                 el => (el.id === this.currentUser.id)
             ).reduce(

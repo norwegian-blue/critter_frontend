@@ -1,11 +1,11 @@
-import axios from 'axios';
+import api from "./api";
 import authHeader from './auth-header';
 const API_URL = process.env.NODE_ENV === "Production"
     ? "/api/creets"
     : "http://localhost:8080/api/creets";
 class CreetService {
     postCreet(content) {
-        return axios.post(API_URL + '/',
+        return api.post(API_URL + '/',
             {
                 content: content,
             },
@@ -14,19 +14,19 @@ class CreetService {
             });
     }
     getFeed(page, size) {
-        return axios.get(`${API_URL}?page=${page}&size=${size}`, 
+        return api.get(`${API_URL}?page=${page}&size=${size}`, 
             {
                 headers: authHeader()
             });
     }
     deleteCreet(creetId) {
-        return axios.delete(`${API_URL}/${creetId}`,
+        return api.delete(`${API_URL}/${creetId}`,
             {
                 headers: authHeader()
             });
     }
     editCreet(creetId, content) {
-        return axios.put(`${API_URL}/${creetId}`,
+        return api.put(`${API_URL}/${creetId}`,
             {
                 content: content,
             },
@@ -35,7 +35,7 @@ class CreetService {
             });
     }
     repostCreet(creetId, content) {
-        return axios.post(`${API_URL}/recreet/${creetId}`,
+        return api.post(`${API_URL}/recreet/${creetId}`,
             {
                 content: content,
             },
@@ -44,7 +44,7 @@ class CreetService {
             });
     }
     upvoteCreet(creetId) {
-        return axios.post(`${API_URL}/upvote/${creetId}`, {},
+        return api.post(`${API_URL}/upvote/${creetId}`, {},
             {
                 headers: authHeader(),
             });

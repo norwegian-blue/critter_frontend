@@ -87,6 +87,11 @@ export default {
             return this.$store.state.auth.user;
         },
     },
+    updated() {
+        if (!this.$store.state.auth.status.loggedIn) {
+            return this.$router.push("/Landing");
+        }
+    },
     methods: {
         handleUpdate(user) {
             this.updLoading = true;

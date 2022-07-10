@@ -1,17 +1,17 @@
-import axios from "axios";
+import api from "./api";
 import authHeader from "./auth-header";
 const API_URL = process.env.NODE_ENV === "production"
     ? "/api/auth/"
     : "http://localhost:8080/api/auth/";
 class AuthService {
     register(user) {
-        return axios.post(API_URL + 'user', {
+        return api.post(API_URL + 'user', {
             username: user.username,
             password: user.password,
         });
     }
     login(user) {
-        return axios
+        return api
             .post(API_URL + 'signin', {
                 username: user.username,
                 password: user.password,
@@ -27,7 +27,7 @@ class AuthService {
         localStorage.removeItem('user');
     }
     delete(userId) {
-        return axios
+        return api
             .delete(`${API_URL}user/${userId}`, {
                 headers: authHeader(),
             })
@@ -36,7 +36,7 @@ class AuthService {
             });
     }
     update(user, userId) {
-        return axios
+        return api
             .put(`${API_URL}user/${userId}`, 
                 {
                     username: user.username,
