@@ -100,4 +100,8 @@ footer {
 li {
   cursor: pointer;
 }
+
+.nav-link {
+  font-size: 0.95em;
+}
 </style>

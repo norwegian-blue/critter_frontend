@@ -2,9 +2,16 @@
     <div class="container col-md-12">
         <header>
             <div v-if="currentUser" id="userName">
-                <h4 class="m-3 text-center">&#x1008A; - {{ currentUser.username }} - &#x1008A;</h4>
+                <h4 class="mx-0 my-3 text-center">&#x1008A; - {{ currentUser.username }} - &#x1008A;</h4>
             </div>
         </header>
+
+        <!-- Admin control panel -->
+        <div class="card card-container py-3">
+            <AdminPanel/>
+        </div>
+
+        <!-- Update user info -->
         <div class="card card-container">
             <img class="rounded mx-auto mb-3" src="hedgehogMagician.jpg" style="width:75%;height:75%"/>
             <Form @submit="handleUpdate" :validation-schema="schema">
@@ -32,6 +39,8 @@
                 </div>
             </Form>  
         </div>
+
+        <!-- Delete user -->
         <div class="card card-container">
             <img class="rounded mx-auto mb-3" src="rabbitMoon.jpg" style="width:50%;height:50%"/>
             <Form @submit="handleDelete">
@@ -52,6 +61,7 @@
 
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
+import AdminPanel from "./AdminPanel.vue";
 import * as yup from "yup";
 export default {
     name: "Profile",
@@ -59,6 +69,7 @@ export default {
         Form,
         Field,
         ErrorMessage,
+        AdminPanel,
     },
     data() {
         const schema = yup.object().shape({

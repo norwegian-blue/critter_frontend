@@ -53,5 +53,11 @@ class AuthService {
                 return response.data;
             });
     }
+    getUsers() {
+        return api.get(`${API_URL}user`,
+            {
+                headers: authHeader(),
+            });
+    }
 }
 export default new AuthService();
