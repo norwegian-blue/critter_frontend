@@ -118,11 +118,11 @@ export default {
             return this.creet.user.id === this.currentUser.id;
         },
         likes() {
-            return this.creet.like.length;
+            return this.creet.likes.length;
         },
         canLike() {
             if (!this.currentUser) {return false}
-            const liked = this.creet.like.map(
+            const liked = this.creet.likes.map(
                 el => (el.id === this.currentUser.id)
             ).reduce(
                 (prev, el) => (prev || el),
