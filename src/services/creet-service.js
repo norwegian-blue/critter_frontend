@@ -1,6 +1,6 @@
 import api from "./api";
 import authHeader from './auth-header';
-const API_URL = process.env.NODE_ENV === "Production"
+const API_URL = process.env.NODE_ENV === "production"
     ? "/api/creets"
     : "http://localhost:8080/api/creets";
 class CreetService {
