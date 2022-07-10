@@ -49,8 +49,17 @@ export default {
     },
     data() {
         return {
-            pgNum: [1, 2, 3],
             currentPage: 1,
+        }
+    },
+    computed: {
+        pgNum() {
+            // Update page numbers
+            let pgNum = this.currentPage > 1 ? [-1, 0, 1].map(x => x+this.currentPage) : [1, 2 ,3];
+            pgNum = this.currentPage < this.pages ? pgNum : [-2, -1, 0].map(x => x+this.pages);
+            if (this.pages === 2) { pgNum = [1, 2, 0] }
+            if (this.pages === 1) { pgNum = [1, 0, 0] }
+            return pgNum;
         }
     },
     mounted() {
@@ -66,11 +75,6 @@ export default {
             } else {
                 this.currentPage = num;
             }
-            // Update page numbers
-            this.pgNum = this.currentPage > 1 ? [-1, 0, 1].map(x => x+this.currentPage) : [1, 2 ,3];
-            this.pgNum = this.currentPage < this.pages ? this.pgNum : [-2, -1, 0].map(x => x+this.pages);
-            if (this.pages === 2) { this.pgNum = [1, 2, 0] }
-            if (this.pages === 1) { this.pgNum = [1, 0, 0] }
 
             // Emit update
             this.$emit("pageUpd", this.currentPage);
