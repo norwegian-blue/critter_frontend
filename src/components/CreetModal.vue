@@ -94,6 +94,9 @@ export default{
     watch: {
         showModal: {
             handler(newVal) {
+                if (this.editCreet) {
+                    this.content = this.editCreet.content;
+                }
                 this.active = newVal;
                 const body = document.querySelector("body");
                 this.showModal ? body.classList.add("modal-open") : body.classList.remove("modal-open");
@@ -166,11 +169,6 @@ export default{
         },
         repostCreet() {
             return CreetService.repostCreet(this.reCreet.id, this.content);
-        }
-    },
-    mounted() {
-        if (this.editCreet) {
-            this.content = this.editCreet.content;
         }
     },
 }

@@ -94,4 +94,8 @@ a {
     background-color: $boscoDark;
     border-color: $boscoDark;
 }
+
+.page-link:hover {
+    color: $boscoDark;
+}
 </style>
