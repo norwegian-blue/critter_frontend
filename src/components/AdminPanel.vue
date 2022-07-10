@@ -12,8 +12,13 @@
                 <button 
                     class="btn btn-warning mr-2 px-2 py-1"
                     v-show="user.role === 'PENDING'"
-                >Accept</button>
-                <button class="btn btn-danger px-2 py-1">Delete</button>
+                    @click="this.approve(user.id)"
+                    :disabled="this.approveLoading"
+                >Approve</button>
+                <button class="btn btn-danger px-2 py-1"
+                    @click="this.delete(user.id)"
+                    :disabled="this.deleteLoading"
+                >Delete</button>
             </div>
         </div>
     </div> 
@@ -30,6 +35,8 @@ export default {
         return {
             message: "",
             users: "",
+            deleteLoading: false,
+            approveLoading: false,
         }
     },
     methods: {
@@ -39,14 +46,43 @@ export default {
                 this.users = response.data;
             })
             .catch(error => {
-                this.message =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-            }) ;
-        }
+                this.displayError(error);
+            });
+        },
+        approve(userId) {
+            this.approveLoading = true; 
+            AuthService.approve(userId).
+            then(() =>  {
+                this.approveLoading = false;
+                this.getUsers();
+            })
+            .catch(err => {
+                this.approveLoading = false;
+                this.displayError(err);
+            });
+        },
+        delete(userId) {
+            if (confirm("Do you really want to permanently delete current user?")) {
+                this.delLoading = true;
+                AuthService.delete(userId)
+                .then(() => {
+                    this.deleteLoading = false;
+                    this.getUsers();
+                })
+                .catch(err => {
+                    this.deleteLoading = false;
+                    this.displayError(err);
+                });
+            }
+        },
+        displayError(error) {
+            this.message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+        },
     },
     mounted() {
         this.getUsers();

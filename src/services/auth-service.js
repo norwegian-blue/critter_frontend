@@ -1,18 +1,18 @@
 import api from "./api";
 import authHeader from "./auth-header";
 const API_URL = process.env.NODE_ENV === "production"
-    ? "/api/auth/"
-    : "http://localhost:8080/api/auth/";
+    ? "/api/auth"
+    : "http://localhost:8080/api/auth";
 class AuthService {
     register(user) {
-        return api.post(API_URL + 'user', {
+        return api.post(API_URL + '/user', {
             username: user.username,
             password: user.password,
         });
     }
     login(user) {
         return api
-            .post(API_URL + 'signin', {
+            .post(API_URL + '/signin', {
                 username: user.username,
                 password: user.password,
             })
@@ -28,7 +28,7 @@ class AuthService {
     }
     delete(userId) {
         return api
-            .delete(`${API_URL}user/${userId}`, {
+            .delete(`${API_URL}/user/${userId}`, {
                 headers: authHeader(),
             })
             .then(() => {
@@ -37,7 +37,7 @@ class AuthService {
     }
     update(user, userId) {
         return api
-            .put(`${API_URL}user/${userId}`, 
+            .put(`${API_URL}/user/${userId}`, 
                 {
                     username: user.username,
                     password: user.password,
@@ -54,7 +54,13 @@ class AuthService {
             });
     }
     getUsers() {
-        return api.get(`${API_URL}user`,
+        return api.get(`${API_URL}/user`,
+            {
+                headers: authHeader(),
+            });
+    }
+    approve(userId) {
+        return api.post(`${API_URL}/approve/${userId}`, {},
             {
                 headers: authHeader(),
             });
