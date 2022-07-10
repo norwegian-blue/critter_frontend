@@ -30,9 +30,6 @@ class AuthService {
         return api
             .delete(`${API_URL}/user/${userId}`, {
                 headers: authHeader(),
-            })
-            .then(() => {
-                localStorage.removeItem('user');
             });
     }
     update(user, userId) {

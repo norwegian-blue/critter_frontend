@@ -38,6 +38,7 @@ export const auth = {
         delete({ commit }, userId) {
             return AuthService.delete(userId).then(
                 () => {
+                    localStorage.removeItem('user');
                     commit('deleteSuccess');
                     return Promise.resolve();
                 },

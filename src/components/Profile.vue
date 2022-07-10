@@ -7,7 +7,7 @@
         </header>
 
         <!-- Admin control panel -->
-        <div class="card card-container py-3">
+        <div class="card card-container py-3" v-if="currentUser && currentUser.role === 'ADMIN'">
             <AdminPanel/>
         </div>
 
