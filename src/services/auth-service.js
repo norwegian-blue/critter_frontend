@@ -62,5 +62,11 @@ class AuthService {
                 headers: authHeader(),
             });
     }
+    suspend(userId) {
+        return api.post(`${API_URL}/suspend/${userId}`, {},
+            {
+                headers: authHeader(),
+            });
+    }
 }
 export default new AuthService();

@@ -10,14 +10,20 @@
             </span>
             <div class="ml-auto" v-show="user.role !== 'ADMIN'">
                 <button 
-                    class="btn btn-warning mr-2 px-2 py-1"
+                    class="btn btn-success mr-2 px-2 py-1"
                     v-show="user.role === 'PENDING'"
                     @click="this.approve(user.id)"
-                    :disabled="this.approveLoading"
+                    :disabled="this.loading"
                 >Approve</button>
+                <button 
+                    class="btn btn-warning mr-2 px-2 py-1"
+                    v-show="user.role === 'USER'"
+                    @click="this.suspend(user.id)"
+                    :disabled="this.loading"
+                >Suspend</button>
                 <button class="btn btn-danger px-2 py-1"
                     @click="this.delete(user.id)"
-                    :disabled="this.deleteLoading"
+                    :disabled="this.loading"
                 >Delete</button>
             </div>
         </div>
@@ -35,8 +41,7 @@ export default {
         return {
             message: "",
             users: "",
-            deleteLoading: false,
-            approveLoading: false,
+            loading: false,
         }
     },
     methods: {
@@ -50,27 +55,39 @@ export default {
             });
         },
         approve(userId) {
-            this.approveLoading = true; 
-            AuthService.approve(userId).
-            then(() =>  {
-                this.approveLoading = false;
+            this.loading = true; 
+            AuthService.approve(userId)
+            .then(() =>  {
+                this.loading = false;
                 this.getUsers();
             })
             .catch(err => {
-                this.approveLoading = false;
+                this.loading = false;
+                this.displayError(err);
+            });
+        },
+        suspend(userId){
+            this.loading = true;
+            AuthService.suspend(userId)
+            .then(() => {
+                this.loading = false;
+                this.getUsers();
+            })
+            .catch(err => {
+                this.loading = false;
                 this.displayError(err);
             });
         },
         delete(userId) {
             if (confirm("Do you really want to permanently delete current user?")) {
-                this.delLoading = true;
+                this.loading = true;
                 AuthService.delete(userId)
                 .then(() => {
-                    this.deleteLoading = false;
+                    this.loading = false;
                     this.getUsers();
                 })
                 .catch(err => {
-                    this.deleteLoading = false;
+                    this.loading = false;
                     this.displayError(err);
                 });
             }
