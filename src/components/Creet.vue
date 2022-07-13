@@ -12,13 +12,13 @@
 
         <!-- Creet content -->
         <div class="card-body p-2 border-0">
-            {{ creet.content }}
+            <span style="white-space: pre-wrap;" v-html="this.creetFmt(this.creet.content)" />
             <div v-if="this.creet.reCreet" class="card reCreet mt-3">
                 <div class="card-header reCreet font-weight-bold text-right">
                     {{ creet.reCreet.user.username }}
                 </div>
                 <div class="card-body reCreet">
-                    {{ creet.reCreet.content }}
+                    <span style="white-space: pre-wrap;" v-html="this.creetFmt(creet.reCreet.content)" />
                 </div>
             </div>
         </div>
@@ -132,6 +132,15 @@ export default {
         }
     },
     methods: {
+        creetFmt(creet) {
+            let fmtText = creet.replace(/^((?:#[^\s]+\s)+)/, "$1\n");           // Split tage line
+            fmtText = fmtText.split('\n');
+            if (fmtText[0][0] === '#') {                                        // Apply bold tags to first row if tag row
+                fmtText[0] = fmtText[0].replace(/(#[^\s]+)/g, "<b>$1</b>");     
+            }
+            fmtText = fmtText.join('\n');
+            return fmtText.replace(/\n/g, "<br/>");                             // Insert html break for new lines
+        },
         deleteCreet() {
             if (confirm("Do you really want to delete this creet?")) {
                 CreetService.deleteCreet(this.creet.id)
