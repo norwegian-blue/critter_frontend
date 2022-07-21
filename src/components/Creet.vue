@@ -133,12 +133,7 @@ export default {
     },
     methods: {
         creetFmt(creet) {
-            let fmtText = creet.replace(/^((?:#[^\s]+\s)+)/, "$1\n");           // Split tage line
-            fmtText = fmtText.split('\n');
-            if (fmtText[0][0] === '#') {                                        // Apply bold tags to first row if tag row
-                fmtText[0] = fmtText[0].replace(/(#[^\s]+)/g, "<b>$1</b>");     
-            }
-            fmtText = fmtText.join('\n');
+            let fmtText = creet.replace(/(#[^\s]+)/g, "<b>$1</b>");             // Apply bold tags to tags
             return fmtText.replace(/\n/g, "<br/>");                             // Insert html break for new lines
         },
         deleteCreet() {
