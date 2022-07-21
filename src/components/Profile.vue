@@ -2,7 +2,7 @@
     <div class="container col-md-12">
         <header>
             <div v-if="currentUser" id="userName">
-                <h4 class="mx-0 my-3 text-center">&#x1008A; - {{ currentUser.username }} - &#x1008A;</h4>
+                <h4 class="mx-0 my-3 text-center">&#x1008A; - {{ currentUser.alias }} - &#x1008A;</h4>
             </div>
         </header>
 

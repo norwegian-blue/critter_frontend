@@ -25,7 +25,7 @@
         <div v-else class="navbar-nav ml-auto">
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
-              <font-awesome-icon icon="paw" /> {{ currentUser.username }}
+              <font-awesome-icon icon="paw" /> {{ currentUser.alias }}
             </router-link>
           </li>
           <li class="nav-item">

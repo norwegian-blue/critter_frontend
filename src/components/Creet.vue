@@ -3,7 +3,7 @@
         <!-- Author and date-->
         <div class="card-header row mx-0 p-2">
             <div class="col-xs-6 font-weight-bold">
-                {{ creet.user.username }}
+                {{ creet.user.alias }}
             </div>
             <div class="col-xs-6 ml-auto text-right font-italic">
                 {{ this.dateAndTime }}
@@ -15,7 +15,7 @@
             <span style="white-space: pre-wrap;" v-html="this.creetFmt(this.creet.content)" />
             <div v-if="this.creet.reCreet" class="card reCreet mt-3">
                 <div class="card-header reCreet font-weight-bold text-right">
-                    {{ creet.reCreet.user.username }}
+                    {{ creet.reCreet.user.alias }}
                 </div>
                 <div class="card-body reCreet">
                     <span style="white-space: pre-wrap;" v-html="this.creetFmt(creet.reCreet.content)" />

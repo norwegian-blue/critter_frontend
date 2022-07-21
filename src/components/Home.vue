@@ -75,6 +75,7 @@ export default {
                     this.message = "";
                     this.creets = response.data.creets;
                     this.pages = response.data.totalPages;
+                    console.log(this.creets);
                 })
                 .catch(error => {
                     this.message =

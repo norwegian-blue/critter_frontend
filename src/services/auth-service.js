@@ -46,6 +46,7 @@ class AuthService {
             .then(response => {
                 const localData = JSON.parse(localStorage.getItem('user'));
                 localData["username"] = response.data.username;
+                localData["alias"] = response.data.alias;
                 localStorage.setItem('user', JSON.stringify(localData));
                 return response.data;
             });
